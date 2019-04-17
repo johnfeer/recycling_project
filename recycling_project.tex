@@ -1,0 +1,1815 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{recycling\_project}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{o}{*}
+         \PY{k+kn}{import} \PY{n+nn}{re}
+         \PY{k+kn}{from} \PY{n+nn}{collections} \PY{k}{import} \PY{o}{*}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{metricsframe} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Neighborhood\PYZus{}Metrics.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{low\PYZus{}memory}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{curbframe} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Neighborhood\PYZus{}Curbside\PYZus{}Recycling\PYZus{}Rates.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{low\PYZus{}memory}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{c+c1}{\PYZsh{} Combine all the monthly statistics into one average}
+         
+         \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{aveRates} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{n}{sumRecycle} \PY{o}{=} \PY{l+m+mi}{0} 
+         \PY{n}{sumGarbage} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{curbframe}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{sumRecycle} \PY{o}{+}\PY{o}{=} \PY{n}{curbframe}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CURBSIDE RECYCLING (IN POUNDS)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+             \PY{n}{sumGarbage} \PY{o}{+}\PY{o}{=} \PY{n}{curbframe}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CURBSIDE GARBAGE (IN POUNDS)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+             \PY{k}{if} \PY{n}{i} \PY{o}{==} \PY{l+m+mi}{623}\PY{p}{:}
+                 \PY{k}{break}
+             \PY{k}{if} \PY{n}{curbframe}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NEIGHBORHOOD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{!=} \PY{n}{curbframe}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NEIGHBORHOOD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+                 \PY{n}{aveRates}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{curbframe}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NEIGHBORHOOD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{p}{:} \PY{n}{sumRecycle}\PY{o}{/}\PY{p}{(}\PY{n}{sumRecycle}\PY{o}{+}\PY{n}{sumGarbage}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{)}
+                 \PY{n}{sumRecycle} \PY{o}{=} \PY{l+m+mi}{0} 
+                 \PY{n}{sumGarbage} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{aveRates}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{curbframe}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NEIGHBORHOOD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{p}{:} \PY{n}{sumRecycle}\PY{o}{/}\PY{p}{(}\PY{n}{sumRecycle}\PY{o}{+}\PY{n}{sumGarbage}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vertical}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{aveRates}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{aveRates}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{curbside recycling rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:} Text(0, 0.5, 'curbside recycling rate')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vertical}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{aveRates}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{aveRates}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{curbside recycling rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} Text(0, 0.5, 'curbside recycling rate')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{} https://stackoverflow.com/questions/613183/how\PYZhy{}do\PYZhy{}i\PYZhy{}sort\PYZhy{}a\PYZhy{}dictionary\PYZhy{}by\PYZhy{}value}
+         \PY{n}{sortedrates} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{aveRates}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{nabes} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{sortedrates}\PY{p}{]}
+         \PY{n}{rates} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{sortedrates}\PY{p}{]}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vertical}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{curbside recycling rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{nabes}\PY{p}{,} \PY{n}{rates}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} <BarContainer object of 52 artists>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{yearlydata} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{while}\PY{p}{(}\PY{n}{i} \PY{o}{\PYZlt{}} \PY{l+m+mi}{624}\PY{p}{)}\PY{p}{:}
+             \PY{n}{yearlydata}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{curbframe}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NEIGHBORHOOD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{p}{:} \PY{n}{curbframe}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{12}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
+             \PY{n}{i} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{12}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{k}{def} \PY{n+nf}{nabefuse}\PY{p}{(}\PY{o}{*}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{n}{cr} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{cg} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{arg} \PY{o+ow}{in} \PY{n}{x}\PY{p}{:}
+                 \PY{n}{cr} \PY{o}{+}\PY{o}{=} \PY{n}{arg}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{cg} \PY{o}{+}\PY{o}{=} \PY{n}{arg}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{k}{return} \PY{n}{cr} \PY{o}{*} \PY{l+m+mi}{100} \PY{o}{/} \PY{p}{(}\PY{n}{cr} \PY{o}{+} \PY{n}{cg}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{k}{def} \PY{n+nf}{dictupdate}\PY{p}{(}\PY{n}{dic}\PY{p}{,} \PY{n}{name}\PY{p}{,} \PY{n}{rate}\PY{p}{)}\PY{p}{:}
+             \PY{n}{dic}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{name} \PY{p}{:} \PY{n}{rate}\PY{p}{\PYZcb{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} final dict of combined nabes and rates}
+         \PY{n}{a} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         
+         \PY{n}{YD} \PY{o}{=} \PY{n}{yearlydata}
+         \PY{n}{dictupdate}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ALLENTOWN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nabefuse}\PY{p}{(}\PY{n}{yearlydata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ALLEN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dictupdate}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RIVERSIDE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nabefuse}\PY{p}{(}\PY{n}{yearlydata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RIVERSIDE PARK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dictupdate}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BLACK ROCK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nabefuse}\PY{p}{(}\PY{n}{yearlydata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BLACK ROCK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dictupdate}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WEST HERTEL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nabefuse}\PY{p}{(}\PY{n}{yearlydata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MILITARY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dictupdate}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NORTH PARK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nabefuse}\PY{p}{(}\PY{n}{yearlydata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NORTH DELAWARE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{yearlydata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NORTH PARK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dictupdate}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CENTRAL PARK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nabefuse}\PY{p}{(}\PY{n}{yearlydata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STARIN CENTRAL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dictupdate}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KENFIELD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nabefuse}\PY{p}{(}\PY{n}{yearlydata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KENFIELD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dictupdate}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UNIVERSITY HIGHTS/KENSINGTON\PYZhy{}BAILEY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nabefuse}\PY{p}{(}\PY{n}{yearlydata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UNIVERSITY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KENSINGTON}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LaSALLE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dictupdate}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SENECA\PYZhy{}CAZENOVIA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nabefuse}\PY{p}{(}\PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SENECA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CAZENOVIA PARK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dictupdate}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HOPKINS TIFFT/SOUTH PARK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nabefuse}\PY{p}{(}\PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TIFFT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SOUTH PARK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ABBOTT McKINLEY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SOUTH ABBOTT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dictupdate}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PRATT\PYZhy{}WILLERT/FRUIT BELT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nabefuse}\PY{p}{(}\PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WILLERT PARK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MEDICAL PARK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dictupdate}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MASTEN PARK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nabefuse}\PY{p}{(}\PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MASTEN PARK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KINGSLEY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{COLD SPRING}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dictupdate}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GENESEE\PYZhy{}MOSELLE/SCHILER PARK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nabefuse}\PY{p}{(}\PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GENESEE MOSELLE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SCHILLER PARK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EMERSON}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dictupdate}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BROADWAY\PYZhy{}FILLMORE/LOVEJOY/BABCOCK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nabefuse}\PY{p}{(}\PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EMSLIE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{JOHNSON}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BROADWAY FILLMORE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LOVEJOY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BABCOCK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{VALLEY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dictupdate}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KAISERTOWN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nabefuse}\PY{p}{(}\PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KAISERTOWN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dictupdate}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DELAVAN\PYZhy{}GRIDER}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nabefuse}\PY{p}{(}\PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GRIDER}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dictupdate}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MLK PARK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nabefuse}\PY{p}{(}\PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M.L.K. PARK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dictupdate}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FILLMORE\PYZhy{}LEROY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nabefuse}\PY{p}{(}\PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BROADWAY FILLMORE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dictupdate}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PARKSIDE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nabefuse}\PY{p}{(}\PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PARKSIDE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PARK MEADOW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DELAWARE PARK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dictupdate}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ELMWOOD/WEST SIDE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nabefuse}\PY{p}{(}\PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ALBRIGHT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BRYANT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DELAWARE W. FERRY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATE HOSPITAL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GRANT FERRY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FOREST}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FRONT PARK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dictupdate}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LOWER WEST SIDE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nabefuse}\PY{p}{(}\PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LAKEVIEW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{COLUMBUS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dictupdate}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1ST WARD/ELLICOTT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nabefuse}\PY{p}{(}\PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FIRST WARD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PERRY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SOUTH ELLICOTT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dictupdate}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HAMLIN PARK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nabefuse}\PY{p}{(}\PY{n}{YD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HAMLIN PARK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vertical}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{a}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{a}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Updated Neighborhood Recycling Rates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Curbside Recycling Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} Text(0, 0.5, 'Curbside Recycling Rate')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{c+c1}{\PYZsh{} Forgive me}
+         \PY{k+kn}{import} \PY{n+nn}{collections}
+         \PY{k}{def} \PY{n+nf}{nabefuse2}\PY{p}{(}\PY{o}{*}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+         \PY{c+c1}{\PYZsh{}     d = oderedDict([(\PYZsq{}total persons\PYZsq{}, 0), (\PYZsq{}males\PYZsq{}, 0), (\PYZsq{}females\PYZsq{}),0, (\PYZsq{}under25\PYZsq{},0), (\PYZsq{}25to44\PYZsq{},0),(\PYZsq{}45to64\PYZsq{},0),(\PYZsq{}senior\PYZsq{},0),(\PYZsq{}white\PYZsq{},0), (\PYZsq{}black\PYZsq{},0),}
+         \PY{c+c1}{\PYZsh{}          \PYZsq{}hispanic\PYZsq{}:0,\PYZsq{}asian\PYZsq{}:0,\PYZsq{}otherrace\PYZsq{}:0,\PYZsq{}totoccunits\PYZsq{}:0,\PYZsq{}numoccunits\PYZsq{}:0,\PYZsq{}vacant\PYZsq{}:0,\PYZsq{}othervacant\PYZsq{}:0,\PYZsq{}totunits\PYZsq{}:0,}
+         \PY{c+c1}{\PYZsh{}          \PYZsq{}1unit\PYZsq{}:0,\PYZsq{}2unit\PYZsq{}:0,\PYZsq{}3to20unit\PYZsq{}:0,\PYZsq{}20plusunit\PYZsq{}:0, \PYZsq{}21stcenthouse\PYZsq{}:0, \PYZsq{}post70house\PYZsq{}:0,\PYZsq{}post40house\PYZsq{}:0,\PYZsq{}oldhouse\PYZsq{}:0,}
+         \PY{c+c1}{\PYZsh{}          \PYZsq{}owners\PYZsq{}:0,\PYZsq{}renters\PYZsq{}:0,\PYZsq{}nocars\PYZsq{}:0,\PYZsq{}1car\PYZsq{}:0,\PYZsq{}2pluscars\PYZsq{}:0,\PYZsq{}families\PYZsq{}:0,\PYZsq{}famwithkids\PYZsq{}:0,\PYZsq{}marriedwithkids\PYZsq{}:0,}
+         \PY{c+c1}{\PYZsh{}          \PYZsq{}singles\PYZsq{}:0,\PYZsq{}foreign\PYZsq{}:0,\PYZsq{}nohs\PYZsq{}:0,\PYZsq{}hs\PYZsq{}:0,\PYZsq{}assocs\PYZsq{}:0,\PYZsq{}bachelors\PYZsq{}:0,\PYZsq{}grads\PYZsq{}:0,\PYZsq{}nonfamilies\PYZsq{}:0,\PYZsq{}loners\PYZsq{}:0,\PYZsq{}friends\PYZsq{}:0,\PYZcb{}}
+             
+             \PY{n}{d} \PY{o}{=} \PY{n}{OrderedDict}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total persons}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{males}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{females}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{under25}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{25to44}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{45to64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{senior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} 
+                 \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latinx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{asian}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{otherrace}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totoccunits}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{numoccunits}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{numvacantunits}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}
+                 \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{othervacant}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totunits}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1unit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2unit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3to19unit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20plusunit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{21stcenthouse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}
+                 \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{post70shouse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{post40shouse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oldhouse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{owners}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{renters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nocars}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1car}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2pluscars}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}
+                 \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{families}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{famwithkids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{marriedwithkids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{singles}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{foreign}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nohs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{assocs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}
+                 \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bachelors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{grads}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nonfamilies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loners}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{friends}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lonelyseniors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{arg} \PY{o+ow}{in} \PY{n}{x}\PY{p}{:}
+                 \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{k}{for} \PY{n}{key} \PY{o+ow}{in} \PY{n}{d}\PY{p}{:}
+                     \PY{n}{d}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n+nb}{str}\PY{p}{(}\PY{n}{key}\PY{p}{)}\PY{p}{:}\PY{n}{d}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{key}\PY{p}{)}\PY{p}{]}\PY{o}{+}\PY{n}{arg}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
+                     \PY{n}{i} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                     
+             \PY{k}{return} \PY{n}{d}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{metricsframe} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Neighborhood\PYZus{}Metrics.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{low\PYZus{}memory}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{metricsframe}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{35}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{35}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{numetricsframe} \PY{o}{=} \PY{n}{metricsframe}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} numetricsframe.iloc[:,0:11]}
+         \PY{n}{numetricsframe} \PY{o}{=} \PY{n}{numetricsframe}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{numetricsframe}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{11}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{numetricsframe} \PY{o}{=} \PY{n}{numetricsframe}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{numetricsframe}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{23}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{numetricsframe} \PY{o}{=} \PY{n}{numetricsframe}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{numetricsframe}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{14}\PY{p}{:}\PY{l+m+mi}{20}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{numetricsframe} \PY{o}{=} \PY{n}{numetricsframe}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{numetricsframe}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{18}\PY{p}{:}\PY{l+m+mi}{43}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{numetricsframe} \PY{o}{=} \PY{n}{numetricsframe}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{numetricsframe}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{:}\PY{l+m+mi}{38}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{numetricsframe} \PY{o}{=} \PY{n}{numetricsframe}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{numetricsframe}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{31}\PY{p}{:}\PY{l+m+mi}{50}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{numetricsframe} \PY{o}{=} \PY{n}{numetricsframe}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{numetricsframe}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{42}\PY{p}{:}\PY{l+m+mi}{65}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{numetricsframe} \PY{o}{=} \PY{n}{numetricsframe}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{numetricsframe}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{53}\PY{p}{:}\PY{l+m+mi}{56}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{numetricsframe} \PY{o}{=} \PY{n}{numetricsframe}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{numetricsframe}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{41}\PY{p}{:}\PY{l+m+mi}{49}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+    \subsection{Neighborhood match guide}\label{neighborhood-match-guide}
+
+RIVERSIDE = RIVERSIDE
+
+BLACK ROCK + GRANT-AMHERST = BLACK ROCK
+
+WEST HERTEL = MILITARY
+
+N PARK = N DELAWARE + N PARK
+
+CENTRAL PARK = STARIN CENTRAL
+
+KENFIELD = KENFIELD
+
+UNIV HEIGHTS + KENSINGTON-BAILEY = UNIV HEIGHTS + KENSINGTON + LASALLE
+
+SENECA-CAZENOVIA = SENECA + CAZENOVIA PARK
+
+HOPKINS TIFFT + S PARK = TIFFT + S PARK + ABBOT + MCKINLEY PARK + S
+ABOTT
+
+PRATT-WILLERT + FRUIT BELT = WILLERT PARK + MEDICAL PARK
+
+MASTEN PARK = MASTEN PARK + KINGSLEY + COLD SPRING
+
+GENNESSEE MOSELLE + SCHILLER PARK = GENNESSEE MOSELLE + SCHILLER PARK +
+EMERSON
+
+BROADWAY FILLMORE + LOOVEJOY + SENECA + BABCOCK = EMSLIE + JOHNSON +
+BROADWAY-FILLMORE + LOVEJOY + BABCOCK + VALLEY
+
+KAISERTOWN = KAISERTOWN
+
+DELAVAN-GRIDER = GRIDER
+
+MLK PARK = MLK PARK
+
+FILLMORE-LEROY = FILLMORE
+
+PARKSIDE = PARKSIDE + PARK MEADOW + DELAWARE PARK
+
+ELMWOOD BIDWELL + ELMWOOD BRYANT + UWS + WS = ALBRIGHT + BRYANT +
+DELAWARE-W FERRY + STATE HOSPITAL + GRANT-FERRY + FOREST + FRONT PARK
+
+ALLENTOWN = ALLEN
+
+LWS = LAKEVIEW + COLUMBUS
+
+1ST WARD + CENTRAL + ELLICOTT = 1ST WARD + PERRY + S ELLICOTT
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{numetricsframe}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}53}]:}                     Total Persons  Male Persons  Female Persons  Age < 24  \textbackslash{}
+         Neighborhood                                                                
+         Central                      3458          1928            1530       811   
+         Lower West Side              6340          2712            3628      2428   
+         West Side                   10455          5380            5075      4168   
+         Upper West Side             10278          5281            4997      4778   
+         Allentown                    3363          1840            1523      1031   
+         Elmwood Bidwell             15804          7405            8399      6500   
+         Elmwood Bryant              10632          5604            5028      2321   
+         Parkside                     8378          3981            4397      2798   
+         Grant-Amherst                3852          1709            2143      1743   
+         Black Rock                   3978          2028            1950      1560   
+         Riverside                   10703          4891            5812      4426   
+         West Hertel                  4293          2300            1993      1622   
+         North Park                  16990          8404            8586      4025   
+         Central Park                 5878          2983            2895      1161   
+         University Heights          10377          5565            4812      5174   
+         Kensington-Bailey           14098          6250            7848      5682   
+         Kenfield                     7049          2724            4325      3077   
+         Schiller Park                9772          4332            5440      4303   
+         Genesee-Moselle              6911          3263            3648      2696   
+         MLK Park                     3059          1278            1781      1132   
+         Delavan Grider               5501          2300            3201      1919   
+         Fillmore-Leroy               5458          2566            2892      1974   
+         Hamlin Park                  7284          3312            3972      3752   
+         Masten Park                  6318          2633            3685      2118   
+         Fruit Belt                   2296          1028            1268       666   
+         Pratt-Willert                4772          1777            2995      1406   
+         Ellicott                     2944          1395            1549      1048   
+         Broadway Fillmore           10285          4969            5316      3846   
+         Lovejoy                      7852          3645            4207      2658   
+         Kaisertown                   5180          2493            2687      1345   
+         Seneca Babcock               2425          1174            1251       892   
+         First Ward                   1971           822            1149       796   
+         Hopkins-Tifft                7080          3704            3376      2469   
+         Seneca-Cazenovia             8522          4418            4104      2611   
+         South Park                  15433          7302            8131      4432   
+         
+                             Age 25 to 44  Age 45 to 64  Age 65 >  White  Black  \textbackslash{}
+         Neighborhood                                                             
+         Central                     1328           858       461   1656    986   
+         Lower West Side             1778          1487       647   1386   1454   
+         West Side                   3151          2097      1039   3301   1742   
+         Upper West Side             3060          1752       688   2682   2878   
+         Allentown                   1450           679       203   2582    260   
+         Elmwood Bidwell             4699          2948      1657  11039   2548   
+         Elmwood Bryant              4110          2355      1846   6775   1639   
+         Parkside                    2275          2263      1042   6142   1272   
+         Grant-Amherst               1136           728       245   1546    631   
+         Black Rock                  1141           868       409   1862    438   
+         Riverside                   2911          2528       838   5261   1428   
+         West Hertel                 1303          1024       344   1622   1184   
+         North Park                  6468          4240      2257  12400   2210   
+         Central Park                2135          1839       743   4546    895   
+         University Heights          2348          2102       753   3723   3976   
+         Kensington-Bailey           3498          3395      1523    887  12373   
+         Kenfield                    1568          1664       740    390   6370   
+         Schiller Park               2353          2282       834   1071   7706   
+         Genesee-Moselle             1670          1844       701   1048   5192   
+         MLK Park                     594           783       550    129   2855   
+         Delavan Grider              1020          1544      1018    102   5104   
+         Fillmore-Leroy              1446          1171       867    569   4289   
+         Hamlin Park                 1311          1214      1007   1584   5240   
+         Masten Park                 1394          1618      1188    264   5475   
+         Fruit Belt                   347           694       589    265   1903   
+         Pratt-Willert               1160          1312       894    285   4042   
+         Ellicott                     721           804       371    787   1396   
+         Broadway Fillmore           2605          2552      1282   1855   6270   
+         Lovejoy                     2219          1966      1009   5971   1142   
+         Kaisertown                  1341          1710       784   4492    237   
+         Seneca Babcock               700           645       188   1942     40   
+         First Ward                   419           509       247   1555      0   
+         Hopkins-Tifft               1982          1813       816   4871    435   
+         Seneca-Cazenovia            2636          2178      1097   7081    570   
+         South Park                  4383          4344      2274  13912    464   
+         
+                             Latinx            {\ldots}              \textbackslash{}
+         Neighborhood                          {\ldots}               
+         Central                707            {\ldots}               
+         Lower West Side       3220            {\ldots}               
+         West Side             3440            {\ldots}               
+         Upper West Side       2401            {\ldots}               
+         Allentown              292            {\ldots}               
+         Elmwood Bidwell       1066            {\ldots}               
+         Elmwood Bryant         838            {\ldots}               
+         Parkside               463            {\ldots}               
+         Grant-Amherst         1057            {\ldots}               
+         Black Rock            1349            {\ldots}               
+         Riverside             2407            {\ldots}               
+         West Hertel           1066            {\ldots}               
+         North Park            1579            {\ldots}               
+         Central Park           177            {\ldots}               
+         University Heights     725            {\ldots}               
+         Kensington-Bailey      206            {\ldots}               
+         Kenfield               189            {\ldots}               
+         Schiller Park          504            {\ldots}               
+         Genesee-Moselle        306            {\ldots}               
+         MLK Park                32            {\ldots}               
+         Delavan Grider          56            {\ldots}               
+         Fillmore-Leroy         229            {\ldots}               
+         Hamlin Park            159            {\ldots}               
+         Masten Park            410            {\ldots}               
+         Fruit Belt              93            {\ldots}               
+         Pratt-Willert          219            {\ldots}               
+         Ellicott               529            {\ldots}               
+         Broadway Fillmore      282            {\ldots}               
+         Lovejoy                465            {\ldots}               
+         Kaisertown             341            {\ldots}               
+         Seneca Babcock         346            {\ldots}               
+         First Ward             375            {\ldots}               
+         Hopkins-Tifft         1319            {\ldots}               
+         Seneca-Cazenovia       406            {\ldots}               
+         South Park             865            {\ldots}               
+         
+                             < High School Education  High School Education  \textbackslash{}
+         Neighborhood                                                         
+         Central                          237.841330             581.047601   
+         Lower West Side                  781.070041            1348.716769   
+         West Side                       1358.694608            1831.194847   
+         Upper West Side                  970.705454            1403.008000   
+         Allentown                        127.917667             594.250429   
+         Elmwood Bidwell                  421.766982            1612.794497   
+         Elmwood Bryant                   749.177716            1697.541571   
+         Parkside                         216.111828            1152.596416   
+         Grant-Amherst                    391.439071             809.480797   
+         Black Rock                       439.539702             918.658809   
+         Riverside                        944.169189            2358.120121   
+         West Hertel                      468.540621             778.403969   
+         North Park                       885.396838            3057.521018   
+         Central Park                     110.289167             952.403646   
+         University Heights               316.820296            1782.285604   
+         Kensington-Bailey                893.304420            3385.118108   
+         Kenfield                         435.861531            1951.488922   
+         Schiller Park                    869.183397            2126.606692   
+         Genesee-Moselle                  652.106287            1595.451008   
+         MLK Park                         292.924235             990.939284   
+         Delavan Grider                   398.664433            1329.768844   
+         Fillmore-Leroy                   435.124857            1412.210103   
+         Hamlin Park                      326.840317            1513.250283   
+         Masten Park                      732.689048            1579.479524   
+         Fruit Belt                       203.807362             459.483436   
+         Pratt-Willert                    489.306595            1324.098039   
+         Ellicott                         389.350211             723.590190   
+         Broadway Fillmore               1113.196925            2415.466066   
+         Lovejoy                          599.460916            2027.570273   
+         Kaisertown                       339.972621            1285.541330   
+         Seneca Babcock                   177.690802             611.256360   
+         First Ward                       234.270638             423.437447   
+         Hopkins-Tifft                    397.615485            1754.291477   
+         Seneca-Cazenovia                 622.264084            2105.132296   
+         South Park                       515.017817            3197.670212   
+         
+                             Associates Education  Bachelors Education  \textbackslash{}
+         Neighborhood                                                    
+         Central                       147.264450           330.266717   
+         Lower West Side               277.894939           286.787577   
+         West Side                     202.402418           544.982186   
+         Upper West Side               208.250182           373.044364   
+         Allentown                     165.159520           446.092624   
+         Elmwood Bidwell               567.661221          1702.983663   
+         Elmwood Bryant                412.493683          1671.528456   
+         Parkside                      263.064695           903.038710   
+         Grant-Amherst                  90.449028           210.541015   
+         Black Rock                    115.960711           173.593879   
+         Riverside                     417.803091           298.712761   
+         West Hertel                   175.702733           247.890678   
+         North Park                    890.336290          1973.928654   
+         Central Park                  164.403010           695.234047   
+         University Heights            434.084951           521.176245   
+         Kensington-Bailey             637.785646           340.466968   
+         Kenfield                      423.995972           227.027694   
+         Schiller Park                 377.087585           287.869080   
+         Genesee-Moselle               263.118861           180.768683   
+         MLK Park                      135.568241            83.923197   
+         Delavan Grider                301.494137           235.604690   
+         Fillmore-Leroy                188.907864           273.810275   
+         Hamlin Park                   180.067950           239.184598   
+         Masten Park                   354.503810           209.544762   
+         Fruit Belt                     55.536196            84.352147   
+         Pratt-Willert                 258.722816           298.586453   
+         Ellicott                       97.337553           107.357595   
+         Broadway Fillmore             386.364963           324.710980   
+         Lovejoy                       320.369657           202.695418   
+         Kaisertown                    373.652151           319.002347   
+         Seneca Babcock                 76.407045            40.276582   
+         First Ward                     87.514894            16.156596   
+         Hopkins-Tifft                 254.713077           262.486012   
+         Seneca-Cazenovia              344.610218           431.837760   
+         South Park                    841.799836          1058.680211   
+         
+                             Graduate Education  Total Households  \textbackslash{}
+         Neighborhood                                               
+         Central                     334.579902              1631   
+         Lower West Side             204.530675              2899   
+         West Side                   361.725942              4299   
+         Upper West Side             148.992000              3104   
+         Allentown                   554.579760              1888   
+         Elmwood Bidwell            1864.793637              6177   
+         Elmwood Bryant             1646.258573              6170   
+         Parkside                   1054.188351              3589   
+         Grant-Amherst               101.090090              1603   
+         Black Rock                   31.246898              1679   
+         Riverside                   111.194838              4130   
+         West Hertel                 148.461999              1819   
+         North Park                 1197.817200              8005   
+         Central Park                508.670129              2431   
+         University Heights          513.632904              3568   
+         Kensington-Bailey           417.324857              5674   
+         Kenfield                    103.625881              3142   
+         Schiller Park               151.253246              3812   
+         Genesee-Moselle             130.555160              2822   
+         MLK Park                     51.645044              1555   
+         Delavan Grider              118.467895              2384   
+         Fillmore-Leroy              154.946900              2465   
+         Hamlin Park                 140.656852              2400   
+         Masten Park                 137.782857              3014   
+         Fruit Belt                   50.820859               854   
+         Pratt-Willert               260.286096              2631   
+         Ellicott                     39.364451              1357   
+         Broadway Fillmore           171.261065              4411   
+         Lovejoy                      49.903735              3200   
+         Kaisertown                  118.831551              2437   
+         Seneca Babcock                2.369211               908   
+         First Ward                   29.620426               791   
+         Hopkins-Tifft                87.893949              2757   
+         Seneca-Cazenovia            127.155642              3631   
+         South Park                  817.831924              6431   
+         
+                             Total Non-Family Households  Total Living Alone  \textbackslash{}
+         Neighborhood                                                          
+         Central                                     968                 761   
+         Lower West Side                            1436                1225   
+         West Side                                  2256                1954   
+         Upper West Side                            1102                 803   
+         Allentown                                  1427                1119   
+         Elmwood Bidwell                            4709                3738   
+         Elmwood Bryant                             3463                2386   
+         Parkside                                   1885                1495   
+         Grant-Amherst                               772                 697   
+         Black Rock                                  769                 704   
+         Riverside                                  1752                1453   
+         West Hertel                                 822                 671   
+         North Park                                 4254                3041   
+         Central Park                               1143                 812   
+         University Heights                         1926                 980   
+         Kensington-Bailey                          2382                2209   
+         Kenfield                                   1150                1050   
+         Schiller Park                              1413                1318   
+         Genesee-Moselle                            1371                1199   
+         MLK Park                                    692                 655   
+         Delavan Grider                              875                 798   
+         Fillmore-Leroy                             1114                 975   
+         Hamlin Park                                 888                 639   
+         Masten Park                                1595                1480   
+         Fruit Belt                                  331                 315   
+         Pratt-Willert                              1496                1422   
+         Ellicott                                    723                 707   
+         Broadway Fillmore                          2262                2113   
+         Lovejoy                                    1344                1116   
+         Kaisertown                                 1267                1053   
+         Seneca Babcock                              277                 194   
+         First Ward                                  373                 315   
+         Hopkins-Tifft                              1026                 782   
+         Seneca-Cazenovia                           1716                1468   
+         South Park                                 2520                1994   
+         
+                             Total Not Living Alone  Total Living Alone Senior  
+         Neighborhood                                                           
+         Central                                207                        184  
+         Lower West Side                        211                        332  
+         West Side                              302                        608  
+         Upper West Side                        299                        265  
+         Allentown                              308                         80  
+         Elmwood Bidwell                        971                       1103  
+         Elmwood Bryant                        1077                        505  
+         Parkside                               390                        269  
+         Grant-Amherst                           75                        158  
+         Black Rock                              65                        209  
+         Riverside                              299                        289  
+         West Hertel                            151                        196  
+         North Park                            1213                        678  
+         Central Park                           331                        149  
+         University Heights                     946                        306  
+         Kensington-Bailey                      173                        565  
+         Kenfield                               100                        327  
+         Schiller Park                           95                        353  
+         Genesee-Moselle                        172                        238  
+         MLK Park                                37                        234  
+         Delavan Grider                          77                        226  
+         Fillmore-Leroy                         139                        416  
+         Hamlin Park                            249                        302  
+         Masten Park                            115                        611  
+         Fruit Belt                              16                        164  
+         Pratt-Willert                           74                        556  
+         Ellicott                                16                        189  
+         Broadway Fillmore                      149                        678  
+         Lovejoy                                228                        425  
+         Kaisertown                             214                        378  
+         Seneca Babcock                          83                         61  
+         First Ward                              58                        117  
+         Hopkins-Tifft                          244                        304  
+         Seneca-Cazenovia                       248                        465  
+         South Park                             526                        768  
+         
+         [35 rows x 45 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{c+c1}{\PYZsh{} transform data frame to be combined with recycling rates. Unfortunately tedious.}
+         \PY{k+kn}{import} \PY{n+nn}{collections}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{numetricsframe}
+         
+         \PY{k}{def} \PY{n+nf}{nurow}\PY{p}{(}\PY{o}{*}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{n}{row} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{45}\PY{p}{)}
+             \PY{k}{for} \PY{n}{arg} \PY{o+ow}{in} \PY{n}{x}\PY{p}{:}
+                 \PY{n}{row} \PY{o}{+}\PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{arg}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         
+         
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Allentown}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ALLENTOWN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Riverside}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RIVERSIDE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hamlin Park}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HAMLIN PARK}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{West Hertel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WEST HERTEL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{nmf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Black Rock}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Grant\PYZhy{}Amherst}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Black Rock}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BLACK ROCK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Grant\PYZhy{}Amherst}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{North Park}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NORTH PARK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Central Park}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CENTRAL PARK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Kenfield}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{KENFIELD}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{nmf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{University Heights}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Kensington\PYZhy{}Bailey}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{University Heights}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UNIVERSITY HEIGHTS/KENSINGTON\PYZhy{}BAILEY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Kensington\PYZhy{}Bailey}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Seneca\PYZhy{}Cazenovia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SENECA\PYZhy{}CAZENOVIA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{nmf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hopkins\PYZhy{}Tifft}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{South Park}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hopkins\PYZhy{}Tifft}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HOPKINS\PYZhy{}TIFFT/SOUTH PARK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{South Park}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{nmf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pratt\PYZhy{}Willert}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fruit Belt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pratt\PYZhy{}Willert}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PRATT\PYZhy{}WILLERT/FRUIT BELT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fruit Belt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Masten Park}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MASTEN PARK}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{nmf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genesee\PYZhy{}Moselle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Schiller Park}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genesee\PYZhy{}Moselle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GENNESSEE/SCHILLER PARK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Schiller Park}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{nmf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Broadway Fillmore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lovejoy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n}{nmf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Seneca Babcock}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Broadway Fillmore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BROADWAY\PYZhy{}FILLMORE/LOVEJOY/BABCOCK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lovejoy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Seneca Babcock}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Kaisertown}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{KAISERTOWN}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Delavan Grider}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DELAVAN\PYZhy{}GRIDER}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MLK Park}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MLK PARK}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fillmore\PYZhy{}Leroy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{FILLMORE\PYZhy{}LEROY}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Parkside}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PARKSIDE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{nmf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Elmwood Bidwell}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Elmwood Bryant}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n}{nmf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Upper West Side}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n}{nmf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{West Side}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Elmwood Bidwell}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ELMWOOD/WEST SIDE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Elmwood Bryant}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Upper West Side}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{West Side}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lower West Side}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LOWER WEST SIDE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{nmf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{First Ward}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Central}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n}{nmf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ellicott}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{First Ward}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1ST WARD/ELLICOTT}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Central}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ellicott}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{a} \PY{o}{=} \PY{n}{OrderedDict}\PY{p}{(}\PY{n+nb}{sorted}\PY{p}{(}\PY{n}{a}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{nmf} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{sort\PYZus{}index}\PY{p}{(}\PY{n}{level}\PY{o}{=}\PY{n}{a}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Curbside Recycling rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{a}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Curbside Recycling rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}54}]:} Neighborhood
+         1ST WARD/ELLICOTT                       14.054051
+         ALLENTOWN                               18.922150
+         BLACK ROCK                              13.942802
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK       11.953814
+         CENTRAL PARK                            20.260279
+         DELAVAN-GRIDER                          13.630463
+         ELMWOOD/WEST SIDE                       16.605044
+         FILLMORE-LEROY                          11.147475
+         GENNESSEE/SCHILLER PARK                 11.657536
+         HAMLIN PARK                             12.665369
+         HOPKINS-TIFFT/SOUTH PARK                16.260951
+         KAISERTOWN                              15.610098
+         KENFIELD                                10.912553
+         LOWER WEST SIDE                         15.596462
+         MASTEN PARK                             13.897922
+         MLK PARK                                10.369953
+         NORTH PARK                              17.743735
+         PARKSIDE                                19.708866
+         PRATT-WILLERT/FRUIT BELT                13.216167
+         RIVERSIDE                               14.139272
+         SENECA-CAZENOVIA                        16.139512
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY    13.479744
+         WEST HERTEL                             15.682698
+         Name: Curbside Recycling rate, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{a}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}55}]:} OrderedDict([('1ST WARD/ELLICOTT', 14.05405101254213),
+                      ('ALLENTOWN', 18.922149758795822),
+                      ('BLACK ROCK', 13.942801661219047),
+                      ('BROADWAY-FILLMORE/LOVEJOY/BABCOCK', 11.953813606769792),
+                      ('CENTRAL PARK', 20.260279441117763),
+                      ('DELAVAN-GRIDER', 13.630463183641439),
+                      ('ELMWOOD/WEST SIDE', 16.605044070696426),
+                      ('FILLMORE-LEROY', 11.147475454068504),
+                      ('GENESEE-MOSELLE/SCHILER PARK', 11.657536063764631),
+                      ('HAMLIN PARK', 12.665369363717017),
+                      ('HOPKINS TIFFT/SOUTH PARK', 16.26095148906402),
+                      ('KAISERTOWN', 15.61009773524922),
+                      ('KENFIELD', 10.912552608724699),
+                      ('LOWER WEST SIDE', 15.59646216832828),
+                      ('MASTEN PARK', 13.897921717303289),
+                      ('MLK PARK', 10.36995307489445),
+                      ('NORTH PARK', 17.74373452498891),
+                      ('PARKSIDE', 19.708866387760462),
+                      ('PRATT-WILLERT/FRUIT BELT', 13.216167058460169),
+                      ('RIVERSIDE', 14.139271667979155),
+                      ('SENECA-CAZENOVIA', 16.13951238940571),
+                      ('UNIVERSITY HIGHTS/KENSINGTON-BAILEY', 13.479744100000213),
+                      ('WEST HERTEL', 15.682698153659084)])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{order} \PY{o}{=} \PY{n}{a}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}
+         \PY{n}{nmf}\PY{o}{.}\PY{n}{sort\PYZus{}index}\PY{p}{(}\PY{n}{level}\PY{o}{=}\PY{n}{order}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:}                                       Total Persons  Male Persons  \textbackslash{}
+         Neighborhood                                                        
+         1ST WARD/ELLICOTT                            8373.0        4145.0   
+         ALLENTOWN                                    3363.0        1840.0   
+         BLACK ROCK                                   7830.0        3737.0   
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK           20562.0        9788.0   
+         CENTRAL PARK                                 5878.0        2983.0   
+         DELAVAN-GRIDER                               5501.0        2300.0   
+         ELMWOOD/WEST SIDE                           47169.0       23670.0   
+         FILLMORE-LEROY                               5458.0        2566.0   
+         GENNESSEE/SCHILLER PARK                     16683.0        7595.0   
+         HAMLIN PARK                                  7284.0        3312.0   
+         HOPKINS-TIFFT/SOUTH PARK                    22513.0       11006.0   
+         KAISERTOWN                                   5180.0        2493.0   
+         KENFIELD                                     7049.0        2724.0   
+         LOWER WEST SIDE                              6340.0        2712.0   
+         MASTEN PARK                                  6318.0        2633.0   
+         MLK PARK                                     3059.0        1278.0   
+         NORTH PARK                                  16990.0        8404.0   
+         PARKSIDE                                     8378.0        3981.0   
+         PRATT-WILLERT/FRUIT BELT                     7068.0        2805.0   
+         RIVERSIDE                                   10703.0        4891.0   
+         SENECA-CAZENOVIA                             8522.0        4418.0   
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY        24475.0       11815.0   
+         WEST HERTEL                                  4293.0        2300.0   
+         
+                                               Female Persons  Age < 24  Age 25 to 44  \textbackslash{}
+         Neighborhood                                                                   
+         1ST WARD/ELLICOTT                             4228.0    2655.0        2468.0   
+         ALLENTOWN                                     1523.0    1031.0        1450.0   
+         BLACK ROCK                                    4093.0    3303.0        2277.0   
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK            10774.0    7396.0        5524.0   
+         CENTRAL PARK                                  2895.0    1161.0        2135.0   
+         DELAVAN-GRIDER                                3201.0    1919.0        1020.0   
+         ELMWOOD/WEST SIDE                            23499.0   17767.0       15020.0   
+         FILLMORE-LEROY                                2892.0    1974.0        1446.0   
+         GENNESSEE/SCHILLER PARK                       9088.0    6999.0        4023.0   
+         HAMLIN PARK                                   3972.0    3752.0        1311.0   
+         HOPKINS-TIFFT/SOUTH PARK                     11507.0    6901.0        6365.0   
+         KAISERTOWN                                    2687.0    1345.0        1341.0   
+         KENFIELD                                      4325.0    3077.0        1568.0   
+         LOWER WEST SIDE                               3628.0    2428.0        1778.0   
+         MASTEN PARK                                   3685.0    2118.0        1394.0   
+         MLK PARK                                      1781.0    1132.0         594.0   
+         NORTH PARK                                    8586.0    4025.0        6468.0   
+         PARKSIDE                                      4397.0    2798.0        2275.0   
+         PRATT-WILLERT/FRUIT BELT                      4263.0    2072.0        1507.0   
+         RIVERSIDE                                     5812.0    4426.0        2911.0   
+         SENECA-CAZENOVIA                              4104.0    2611.0        2636.0   
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY         12660.0   10856.0        5846.0   
+         WEST HERTEL                                   1993.0    1622.0        1303.0   
+         
+                                               Age 45 to 64  Age 65 >    White  \textbackslash{}
+         Neighborhood                                                            
+         1ST WARD/ELLICOTT                           2171.0    1079.0   3998.0   
+         ALLENTOWN                                    679.0     203.0   2582.0   
+         BLACK ROCK                                  1596.0     654.0   3408.0   
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK           5163.0    2479.0   9768.0   
+         CENTRAL PARK                                1839.0     743.0   4546.0   
+         DELAVAN-GRIDER                              1544.0    1018.0    102.0   
+         ELMWOOD/WEST SIDE                           9152.0    5230.0  23797.0   
+         FILLMORE-LEROY                              1171.0     867.0    569.0   
+         GENNESSEE/SCHILLER PARK                     4126.0    1535.0   2119.0   
+         HAMLIN PARK                                 1214.0    1007.0   1584.0   
+         HOPKINS-TIFFT/SOUTH PARK                    6157.0    3090.0  18783.0   
+         KAISERTOWN                                  1710.0     784.0   4492.0   
+         KENFIELD                                    1664.0     740.0    390.0   
+         LOWER WEST SIDE                             1487.0     647.0   1386.0   
+         MASTEN PARK                                 1618.0    1188.0    264.0   
+         MLK PARK                                     783.0     550.0    129.0   
+         NORTH PARK                                  4240.0    2257.0  12400.0   
+         PARKSIDE                                    2263.0    1042.0   6142.0   
+         PRATT-WILLERT/FRUIT BELT                    2006.0    1483.0    550.0   
+         RIVERSIDE                                   2528.0     838.0   5261.0   
+         SENECA-CAZENOVIA                            2178.0    1097.0   7081.0   
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY        5497.0    2276.0   4610.0   
+         WEST HERTEL                                 1024.0     344.0   1622.0   
+         
+                                                 Black  Latinx  \textbackslash{}
+         Neighborhood                                            
+         1ST WARD/ELLICOTT                      2382.0  1611.0   
+         ALLENTOWN                               260.0   292.0   
+         BLACK ROCK                             1069.0  2406.0   
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK      7452.0  1093.0   
+         CENTRAL PARK                            895.0   177.0   
+         DELAVAN-GRIDER                         5104.0    56.0   
+         ELMWOOD/WEST SIDE                      8807.0  7745.0   
+         FILLMORE-LEROY                         4289.0   229.0   
+         GENNESSEE/SCHILLER PARK               12898.0   810.0   
+         HAMLIN PARK                            5240.0   159.0   
+         HOPKINS-TIFFT/SOUTH PARK                899.0  2184.0   
+         KAISERTOWN                              237.0   341.0   
+         KENFIELD                               6370.0   189.0   
+         LOWER WEST SIDE                        1454.0  3220.0   
+         MASTEN PARK                            5475.0   410.0   
+         MLK PARK                               2855.0    32.0   
+         NORTH PARK                             2210.0  1579.0   
+         PARKSIDE                               1272.0   463.0   
+         PRATT-WILLERT/FRUIT BELT               5945.0   312.0   
+         RIVERSIDE                              1428.0  2407.0   
+         SENECA-CAZENOVIA                        570.0   406.0   
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY  16349.0   931.0   
+         WEST HERTEL                            1184.0  1066.0   
+         
+                                                        {\ldots}             \textbackslash{}
+         Neighborhood                                   {\ldots}              
+         1ST WARD/ELLICOTT                              {\ldots}              
+         ALLENTOWN                                      {\ldots}              
+         BLACK ROCK                                     {\ldots}              
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK              {\ldots}              
+         CENTRAL PARK                                   {\ldots}              
+         DELAVAN-GRIDER                                 {\ldots}              
+         ELMWOOD/WEST SIDE                              {\ldots}              
+         FILLMORE-LEROY                                 {\ldots}              
+         GENNESSEE/SCHILLER PARK                        {\ldots}              
+         HAMLIN PARK                                    {\ldots}              
+         HOPKINS-TIFFT/SOUTH PARK                       {\ldots}              
+         KAISERTOWN                                     {\ldots}              
+         KENFIELD                                       {\ldots}              
+         LOWER WEST SIDE                                {\ldots}              
+         MASTEN PARK                                    {\ldots}              
+         MLK PARK                                       {\ldots}              
+         NORTH PARK                                     {\ldots}              
+         PARKSIDE                                       {\ldots}              
+         PRATT-WILLERT/FRUIT BELT                       {\ldots}              
+         RIVERSIDE                                      {\ldots}              
+         SENECA-CAZENOVIA                               {\ldots}              
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY           {\ldots}              
+         WEST HERTEL                                    {\ldots}              
+         
+                                               High School Education  \textbackslash{}
+         Neighborhood                                                  
+         1ST WARD/ELLICOTT                               1728.075238   
+         ALLENTOWN                                        594.250429   
+         BLACK ROCK                                      1728.139606   
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK               5054.292699   
+         CENTRAL PARK                                     952.403646   
+         DELAVAN-GRIDER                                  1329.768844   
+         ELMWOOD/WEST SIDE                               6544.538915   
+         FILLMORE-LEROY                                  1412.210103   
+         GENNESSEE/SCHILLER PARK                         3722.057700   
+         HAMLIN PARK                                     1513.250283   
+         HOPKINS-TIFFT/SOUTH PARK                        4951.961689   
+         KAISERTOWN                                      1285.541330   
+         KENFIELD                                        1951.488922   
+         LOWER WEST SIDE                                 1348.716769   
+         MASTEN PARK                                     1579.479524   
+         MLK PARK                                         990.939284   
+         NORTH PARK                                      3057.521018   
+         PARKSIDE                                        1152.596416   
+         PRATT-WILLERT/FRUIT BELT                        1783.581475   
+         RIVERSIDE                                       2358.120121   
+         SENECA-CAZENOVIA                                2105.132296   
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY            5167.403712   
+         WEST HERTEL                                      778.403969   
+         
+                                               Associates Education  \textbackslash{}
+         Neighborhood                                                 
+         1ST WARD/ELLICOTT                               332.116897   
+         ALLENTOWN                                       165.159520   
+         BLACK ROCK                                      206.409739   
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK               783.141666   
+         CENTRAL PARK                                    164.403010   
+         DELAVAN-GRIDER                                  301.494137   
+         ELMWOOD/WEST SIDE                              1390.807504   
+         FILLMORE-LEROY                                  188.907864   
+         GENNESSEE/SCHILLER PARK                         640.206446   
+         HAMLIN PARK                                     180.067950   
+         HOPKINS-TIFFT/SOUTH PARK                       1096.512914   
+         KAISERTOWN                                      373.652151   
+         KENFIELD                                        423.995972   
+         LOWER WEST SIDE                                 277.894939   
+         MASTEN PARK                                     354.503810   
+         MLK PARK                                        135.568241   
+         NORTH PARK                                      890.336290   
+         PARKSIDE                                        263.064695   
+         PRATT-WILLERT/FRUIT BELT                        314.259013   
+         RIVERSIDE                                       417.803091   
+         SENECA-CAZENOVIA                                344.610218   
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY           1071.870597   
+         WEST HERTEL                                     175.702733   
+         
+                                               Bachelors Education  Graduate Education  \textbackslash{}
+         Neighborhood                                                                    
+         1ST WARD/ELLICOTT                              453.780908          403.564779   
+         ALLENTOWN                                      446.092624          554.579760   
+         BLACK ROCK                                     384.134894          132.336988   
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK              567.682980          223.534011   
+         CENTRAL PARK                                   695.234047          508.670129   
+         DELAVAN-GRIDER                                 235.604690          118.467895   
+         ELMWOOD/WEST SIDE                             4292.538668         4021.770152   
+         FILLMORE-LEROY                                 273.810275          154.946900   
+         GENNESSEE/SCHILLER PARK                        468.637764          281.808406   
+         HAMLIN PARK                                    239.184598          140.656852   
+         HOPKINS-TIFFT/SOUTH PARK                      1321.166223          905.725874   
+         KAISERTOWN                                     319.002347          118.831551   
+         KENFIELD                                       227.027694          103.625881   
+         LOWER WEST SIDE                                286.787577          204.530675   
+         MASTEN PARK                                    209.544762          137.782857   
+         MLK PARK                                        83.923197           51.645044   
+         NORTH PARK                                    1973.928654         1197.817200   
+         PARKSIDE                                       903.038710         1054.188351   
+         PRATT-WILLERT/FRUIT BELT                       382.938600          311.106955   
+         RIVERSIDE                                      298.712761          111.194838   
+         SENECA-CAZENOVIA                               431.837760          127.155642   
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY           861.643212          930.957761   
+         WEST HERTEL                                    247.890678          148.461999   
+         
+                                               Total Households  \textbackslash{}
+         Neighborhood                                             
+         1ST WARD/ELLICOTT                               3779.0   
+         ALLENTOWN                                       1888.0   
+         BLACK ROCK                                      3282.0   
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK               8519.0   
+         CENTRAL PARK                                    2431.0   
+         DELAVAN-GRIDER                                  2384.0   
+         ELMWOOD/WEST SIDE                              19750.0   
+         FILLMORE-LEROY                                  2465.0   
+         GENNESSEE/SCHILLER PARK                         6634.0   
+         HAMLIN PARK                                     2400.0   
+         HOPKINS-TIFFT/SOUTH PARK                        9188.0   
+         KAISERTOWN                                      2437.0   
+         KENFIELD                                        3142.0   
+         LOWER WEST SIDE                                 2899.0   
+         MASTEN PARK                                     3014.0   
+         MLK PARK                                        1555.0   
+         NORTH PARK                                      8005.0   
+         PARKSIDE                                        3589.0   
+         PRATT-WILLERT/FRUIT BELT                        3485.0   
+         RIVERSIDE                                       4130.0   
+         SENECA-CAZENOVIA                                3631.0   
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY            9242.0   
+         WEST HERTEL                                     1819.0   
+         
+                                               Total Non-Family Households  \textbackslash{}
+         Neighborhood                                                        
+         1ST WARD/ELLICOTT                                          2064.0   
+         ALLENTOWN                                                  1427.0   
+         BLACK ROCK                                                 1541.0   
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK                          3883.0   
+         CENTRAL PARK                                               1143.0   
+         DELAVAN-GRIDER                                              875.0   
+         ELMWOOD/WEST SIDE                                         11530.0   
+         FILLMORE-LEROY                                             1114.0   
+         GENNESSEE/SCHILLER PARK                                    2784.0   
+         HAMLIN PARK                                                 888.0   
+         HOPKINS-TIFFT/SOUTH PARK                                   3546.0   
+         KAISERTOWN                                                 1267.0   
+         KENFIELD                                                   1150.0   
+         LOWER WEST SIDE                                            1436.0   
+         MASTEN PARK                                                1595.0   
+         MLK PARK                                                    692.0   
+         NORTH PARK                                                 4254.0   
+         PARKSIDE                                                   1885.0   
+         PRATT-WILLERT/FRUIT BELT                                   1827.0   
+         RIVERSIDE                                                  1752.0   
+         SENECA-CAZENOVIA                                           1716.0   
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY                       4308.0   
+         WEST HERTEL                                                 822.0   
+         
+                                               Total Living Alone  \textbackslash{}
+         Neighborhood                                               
+         1ST WARD/ELLICOTT                                 1783.0   
+         ALLENTOWN                                         1119.0   
+         BLACK ROCK                                        1401.0   
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK                 3423.0   
+         CENTRAL PARK                                       812.0   
+         DELAVAN-GRIDER                                     798.0   
+         ELMWOOD/WEST SIDE                                 8881.0   
+         FILLMORE-LEROY                                     975.0   
+         GENNESSEE/SCHILLER PARK                           2517.0   
+         HAMLIN PARK                                        639.0   
+         HOPKINS-TIFFT/SOUTH PARK                          2776.0   
+         KAISERTOWN                                        1053.0   
+         KENFIELD                                          1050.0   
+         LOWER WEST SIDE                                   1225.0   
+         MASTEN PARK                                       1480.0   
+         MLK PARK                                           655.0   
+         NORTH PARK                                        3041.0   
+         PARKSIDE                                          1495.0   
+         PRATT-WILLERT/FRUIT BELT                          1737.0   
+         RIVERSIDE                                         1453.0   
+         SENECA-CAZENOVIA                                  1468.0   
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY              3189.0   
+         WEST HERTEL                                        671.0   
+         
+                                               Total Not Living Alone  \textbackslash{}
+         Neighborhood                                                   
+         1ST WARD/ELLICOTT                                      281.0   
+         ALLENTOWN                                              308.0   
+         BLACK ROCK                                             140.0   
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK                      460.0   
+         CENTRAL PARK                                           331.0   
+         DELAVAN-GRIDER                                          77.0   
+         ELMWOOD/WEST SIDE                                     2649.0   
+         FILLMORE-LEROY                                         139.0   
+         GENNESSEE/SCHILLER PARK                                267.0   
+         HAMLIN PARK                                            249.0   
+         HOPKINS-TIFFT/SOUTH PARK                               770.0   
+         KAISERTOWN                                             214.0   
+         KENFIELD                                               100.0   
+         LOWER WEST SIDE                                        211.0   
+         MASTEN PARK                                            115.0   
+         MLK PARK                                                37.0   
+         NORTH PARK                                            1213.0   
+         PARKSIDE                                               390.0   
+         PRATT-WILLERT/FRUIT BELT                                90.0   
+         RIVERSIDE                                              299.0   
+         SENECA-CAZENOVIA                                       248.0   
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY                  1119.0   
+         WEST HERTEL                                            151.0   
+         
+                                               Total Living Alone Senior  \textbackslash{}
+         Neighborhood                                                      
+         1ST WARD/ELLICOTT                                         490.0   
+         ALLENTOWN                                                  80.0   
+         BLACK ROCK                                                367.0   
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK                        1164.0   
+         CENTRAL PARK                                              149.0   
+         DELAVAN-GRIDER                                            226.0   
+         ELMWOOD/WEST SIDE                                        2481.0   
+         FILLMORE-LEROY                                            416.0   
+         GENNESSEE/SCHILLER PARK                                   591.0   
+         HAMLIN PARK                                               302.0   
+         HOPKINS-TIFFT/SOUTH PARK                                 1072.0   
+         KAISERTOWN                                                378.0   
+         KENFIELD                                                  327.0   
+         LOWER WEST SIDE                                           332.0   
+         MASTEN PARK                                               611.0   
+         MLK PARK                                                  234.0   
+         NORTH PARK                                                678.0   
+         PARKSIDE                                                  269.0   
+         PRATT-WILLERT/FRUIT BELT                                  720.0   
+         RIVERSIDE                                                 289.0   
+         SENECA-CAZENOVIA                                          465.0   
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY                      871.0   
+         WEST HERTEL                                               196.0   
+         
+                                               Curbside Recycling rate  
+         Neighborhood                                                   
+         1ST WARD/ELLICOTT                                   14.054051  
+         ALLENTOWN                                           18.922150  
+         BLACK ROCK                                          13.942802  
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK                   11.953814  
+         CENTRAL PARK                                        20.260279  
+         DELAVAN-GRIDER                                      13.630463  
+         ELMWOOD/WEST SIDE                                   16.605044  
+         FILLMORE-LEROY                                      11.147475  
+         GENNESSEE/SCHILLER PARK                             11.657536  
+         HAMLIN PARK                                         12.665369  
+         HOPKINS-TIFFT/SOUTH PARK                            16.260951  
+         KAISERTOWN                                          15.610098  
+         KENFIELD                                            10.912553  
+         LOWER WEST SIDE                                     15.596462  
+         MASTEN PARK                                         13.897922  
+         MLK PARK                                            10.369953  
+         NORTH PARK                                          17.743735  
+         PARKSIDE                                            19.708866  
+         PRATT-WILLERT/FRUIT BELT                            13.216167  
+         RIVERSIDE                                           14.139272  
+         SENECA-CAZENOVIA                                    16.139512  
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY                13.479744  
+         WEST HERTEL                                         15.682698  
+         
+         [23 rows x 46 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Male Persons}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Male Persons}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Persons}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{} F}\PY{l+s+s1}{emale Persons}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Female Persons}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Persons}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Age \PYZlt{} 24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age \PYZlt{} 24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Persons}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Age 25 to 44}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age 25 to 44}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Persons}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Age 45 to 64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age 45 to 64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Persons}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Age \PYZgt{} 65}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age 65 \PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Persons}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ White}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{White}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Persons}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Persons}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{} La}\PY{l+s+s1}{tinx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Latinx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}  \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Persons}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Asian}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Asian}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Persons}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Other Race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Other}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Persons}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Vacant Units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Vacant Units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Occupancy Units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ 1 Unit Structure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1 Unit Structure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Units in Structure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ 2 Unit Structure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2 Unit Structure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Units in Structure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ 3 to 19 Unit Structure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3 to 19 Unit Structure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Units in Structure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ 20 Plus Unit Structure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20 or More Unit Structure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Units in Structure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f Structure Built 2000\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Built 2000\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Occupancy Units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f Structures Buildt 1970\PYZhy{}1999}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Built 1970\PYZhy{}1999}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Occupancy Units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f Structures built 1940\PYZhy{}1979}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Built 1940\PYZhy{}1969}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Occupancy Units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f Structures Built Pre\PYZhy{}1940}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Built Before 1940}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Occupancy Units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Owner Tenure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Owner Tenure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Occupied Units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Renter Tenure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Renter Tenure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Occupied Units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ 0 Available Vehicle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0 Available Vehicle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Occupied Units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ 1 Available Vehicle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1 Available Vehicle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Occupied Units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ 2+ Available Vehicles}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2 orMore Available Vehicle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Occupied Units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{} F}\PY{l+s+s1}{amily Household}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Family Households}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Occupied Units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{} F}\PY{l+s+s1}{amily Households with Children}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Family W/Children Households}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Occupied Units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Married Family Households with Children}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Married Family W/Children Households}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Occupied Units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Single Person Households}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Single Person Households}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Occupied Units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{} F}\PY{l+s+s1}{oreign Born}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Foreign Born}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Occupied Units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ \PYZlt{} High School Education}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}  \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{} High School Education}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Occupied Units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ HS Education}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High School Education}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Occupied Units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Associate Degrees}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Associates Education}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Occupied Units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Bachelors Degrees}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bachelors Education}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Occupied Units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{} G}\PY{l+s+s1}{rad Degrees}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Graduate Education}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Occupied Units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Non\PYZhy{}Family Households}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Non\PYZhy{}Family Households}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Occupied Units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{} Li}\PY{l+s+s1}{ving Alone}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Living Alone}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Non\PYZhy{}Family Households}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{} Li}\PY{l+s+s1}{ving with Others}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Not Living Alone}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Non\PYZhy{}Family Households}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Senior Living Alone}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Living Alone Senior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{nmf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Non\PYZhy{}Family Households}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{ratesframe} \PY{o}{=} \PY{n}{nmf}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{45}\PY{p}{:}\PY{p}{]}
+         \PY{n}{ratesframe}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:}                                       Curbside Recycling rate  \% Male Persons  \textbackslash{}
+         Neighborhood                                                                    
+         1ST WARD/ELLICOTT                                   14.054051        0.495044   
+         ALLENTOWN                                           18.922150        0.547131   
+         BLACK ROCK                                          13.942802        0.477267   
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK                   11.953814        0.476024   
+         CENTRAL PARK                                        20.260279        0.507486   
+         DELAVAN-GRIDER                                      13.630463        0.418106   
+         ELMWOOD/WEST SIDE                                   16.605044        0.501813   
+         FILLMORE-LEROY                                      11.147475        0.470136   
+         GENNESSEE/SCHILLER PARK                             11.657536        0.455254   
+         HAMLIN PARK                                         12.665369        0.454695   
+         HOPKINS-TIFFT/SOUTH PARK                            16.260951        0.488873   
+         KAISERTOWN                                          15.610098        0.481274   
+         KENFIELD                                            10.912553        0.386438   
+         LOWER WEST SIDE                                     15.596462        0.427760   
+         MASTEN PARK                                         13.897922        0.416746   
+         MLK PARK                                            10.369953        0.417784   
+         NORTH PARK                                          17.743735        0.494644   
+         PARKSIDE                                            19.708866        0.475173   
+         PRATT-WILLERT/FRUIT BELT                            13.216167        0.396859   
+         RIVERSIDE                                           14.139272        0.456975   
+         SENECA-CAZENOVIA                                    16.139512        0.518423   
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY                13.479744        0.482737   
+         WEST HERTEL                                         15.682698        0.535756   
+         
+                                               \% Female Persons  \% Age < 24  \textbackslash{}
+         Neighborhood                                                         
+         1ST WARD/ELLICOTT                             0.504956    0.317091   
+         ALLENTOWN                                     0.452869    0.306572   
+         BLACK ROCK                                    0.522733    0.421839   
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK             0.523976    0.359693   
+         CENTRAL PARK                                  0.492514    0.197516   
+         DELAVAN-GRIDER                                0.581894    0.348846   
+         ELMWOOD/WEST SIDE                             0.498187    0.376667   
+         FILLMORE-LEROY                                0.529864    0.361671   
+         GENNESSEE/SCHILLER PARK                       0.544746    0.419529   
+         HAMLIN PARK                                   0.545305    0.515102   
+         HOPKINS-TIFFT/SOUTH PARK                      0.511127    0.306534   
+         KAISERTOWN                                    0.518726    0.259653   
+         KENFIELD                                      0.613562    0.436516   
+         LOWER WEST SIDE                               0.572240    0.382965   
+         MASTEN PARK                                   0.583254    0.335233   
+         MLK PARK                                      0.582216    0.370056   
+         NORTH PARK                                    0.505356    0.236904   
+         PARKSIDE                                      0.524827    0.333970   
+         PRATT-WILLERT/FRUIT BELT                      0.603141    0.293152   
+         RIVERSIDE                                     0.543025    0.413529   
+         SENECA-CAZENOVIA                              0.481577    0.306383   
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY          0.517263    0.443555   
+         WEST HERTEL                                   0.464244    0.377824   
+         
+                                               \% Age 25 to 44  \% Age 45 to 64  \textbackslash{}
+         Neighborhood                                                           
+         1ST WARD/ELLICOTT                           0.294757        0.259286   
+         ALLENTOWN                                   0.431163        0.201903   
+         BLACK ROCK                                  0.290805        0.203831   
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK           0.268651        0.251094   
+         CENTRAL PARK                                0.363219        0.312862   
+         DELAVAN-GRIDER                              0.185421        0.280676   
+         ELMWOOD/WEST SIDE                           0.318429        0.194026   
+         FILLMORE-LEROY                              0.264932        0.214547   
+         GENNESSEE/SCHILLER PARK                     0.241144        0.247318   
+         HAMLIN PARK                                 0.179984        0.166667   
+         HOPKINS-TIFFT/SOUTH PARK                    0.282726        0.273486   
+         KAISERTOWN                                  0.258880        0.330116   
+         KENFIELD                                    0.222443        0.236062   
+         LOWER WEST SIDE                             0.280442        0.234543   
+         MASTEN PARK                                 0.220639        0.256094   
+         MLK PARK                                    0.194181        0.255966   
+         NORTH PARK                                  0.380695        0.249559   
+         PARKSIDE                                    0.271545        0.270112   
+         PRATT-WILLERT/FRUIT BELT                    0.213214        0.283814   
+         RIVERSIDE                                   0.271980        0.236195   
+         SENECA-CAZENOVIA                            0.309317        0.255574   
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY        0.238856        0.224597   
+         WEST HERTEL                                 0.303517        0.238528   
+         
+                                               \% Age > 65   \% White   \% Black  \textbackslash{}
+         Neighborhood                                                           
+         1ST WARD/ELLICOTT                       0.128867  0.477487  0.284486   
+         ALLENTOWN                               0.060363  0.767767  0.077312   
+         BLACK ROCK                              0.083525  0.435249  0.136526   
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK       0.120562  0.475051  0.362416   
+         CENTRAL PARK                            0.126404  0.773392  0.152263   
+         DELAVAN-GRIDER                          0.185057  0.018542  0.927831   
+         ELMWOOD/WEST SIDE                       0.110878  0.504505  0.186712   
+         FILLMORE-LEROY                          0.158849  0.104251  0.785819   
+         GENNESSEE/SCHILLER PARK                 0.092010  0.127016  0.773122   
+         HAMLIN PARK                             0.138248  0.217463  0.719385   
+         HOPKINS-TIFFT/SOUTH PARK                0.137254  0.834318  0.039932   
+         KAISERTOWN                              0.151351  0.867181  0.045753   
+         KENFIELD                                0.104979  0.055327  0.903674   
+         LOWER WEST SIDE                         0.102050  0.218612  0.229338   
+         MASTEN PARK                             0.188034  0.041785  0.866572   
+         MLK PARK                                0.179797  0.042171  0.933312   
+         NORTH PARK                              0.132843  0.729841  0.130077   
+         PARKSIDE                                0.124373  0.733111  0.151826   
+         PRATT-WILLERT/FRUIT BELT                0.209819  0.077816  0.841115   
+         RIVERSIDE                               0.078296  0.491544  0.133421   
+         SENECA-CAZENOVIA                        0.128726  0.830908  0.066886   
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY    0.092993  0.188355  0.667988   
+         WEST HERTEL                             0.080130  0.377824  0.275798   
+         
+                                               \% Latinx          {\ldots}            \textbackslash{}
+         Neighborhood                                            {\ldots}             
+         1ST WARD/ELLICOTT                     0.192404          {\ldots}             
+         ALLENTOWN                             0.086827          {\ldots}             
+         BLACK ROCK                            0.307280          {\ldots}             
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK     0.053156          {\ldots}             
+         CENTRAL PARK                          0.030112          {\ldots}             
+         DELAVAN-GRIDER                        0.010180          {\ldots}             
+         ELMWOOD/WEST SIDE                     0.164197          {\ldots}             
+         FILLMORE-LEROY                        0.041957          {\ldots}             
+         GENNESSEE/SCHILLER PARK               0.048552          {\ldots}             
+         HAMLIN PARK                           0.021829          {\ldots}             
+         HOPKINS-TIFFT/SOUTH PARK              0.097011          {\ldots}             
+         KAISERTOWN                            0.065830          {\ldots}             
+         KENFIELD                              0.026812          {\ldots}             
+         LOWER WEST SIDE                       0.507886          {\ldots}             
+         MASTEN PARK                           0.064894          {\ldots}             
+         MLK PARK                              0.010461          {\ldots}             
+         NORTH PARK                            0.092937          {\ldots}             
+         PARKSIDE                              0.055264          {\ldots}             
+         PRATT-WILLERT/FRUIT BELT              0.044143          {\ldots}             
+         RIVERSIDE                             0.224890          {\ldots}             
+         SENECA-CAZENOVIA                      0.047641          {\ldots}             
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY  0.038039          {\ldots}             
+         WEST HERTEL                           0.248311          {\ldots}             
+         
+                                               \% Foreign Born  \textbackslash{}
+         Neighborhood                                           
+         1ST WARD/ELLICOTT                           0.080942   
+         ALLENTOWN                                   0.060660   
+         BLACK ROCK                                  0.134356   
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK           0.081132   
+         CENTRAL PARK                                0.080640   
+         DELAVAN-GRIDER                              0.017270   
+         ELMWOOD/WEST SIDE                           0.170111   
+         FILLMORE-LEROY                              0.057164   
+         GENNESSEE/SCHILLER PARK                     0.049222   
+         HAMLIN PARK                                 0.062466   
+         HOPKINS-TIFFT/SOUTH PARK                    0.041080   
+         KAISERTOWN                                  0.048842   
+         KENFIELD                                    0.019435   
+         LOWER WEST SIDE                             0.066246   
+         MASTEN PARK                                 0.054131   
+         MLK PARK                                    0.005557   
+         NORTH PARK                                  0.072278   
+         PARKSIDE                                    0.070423   
+         PRATT-WILLERT/FRUIT BELT                    0.022080   
+         RIVERSIDE                                   0.145567   
+         SENECA-CAZENOVIA                            0.040718   
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY        0.084560   
+         WEST HERTEL                                 0.168414   
+         
+                                               \% < High School Education  \textbackslash{}
+         Neighborhood                                                      
+         1ST WARD/ELLICOTT                                      0.227960   
+         ALLENTOWN                                              0.067753   
+         BLACK ROCK                                             0.253193   
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK                      0.221898   
+         CENTRAL PARK                                           0.045368   
+         DELAVAN-GRIDER                                         0.167225   
+         ELMWOOD/WEST SIDE                                      0.177233   
+         FILLMORE-LEROY                                         0.176521   
+         GENNESSEE/SCHILLER PARK                                0.229317   
+         HAMLIN PARK                                            0.136183   
+         HOPKINS-TIFFT/SOUTH PARK                               0.099329   
+         KAISERTOWN                                             0.139505   
+         KENFIELD                                               0.138721   
+         LOWER WEST SIDE                                        0.269427   
+         MASTEN PARK                                            0.243095   
+         MLK PARK                                               0.188376   
+         NORTH PARK                                             0.110605   
+         PARKSIDE                                               0.060215   
+         PRATT-WILLERT/FRUIT BELT                               0.198885   
+         RIVERSIDE                                              0.228612   
+         SENECA-CAZENOVIA                                       0.171375   
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY                   0.130938   
+         WEST HERTEL                                            0.257581   
+         
+                                               \% HS Education  \% Associate Degrees  \textbackslash{}
+         Neighborhood                                                                
+         1ST WARD/ELLICOTT                           0.457284             0.087885   
+         ALLENTOWN                                   0.314751             0.087479   
+         BLACK ROCK                                  0.526551             0.062891   
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK           0.593296             0.091929   
+         CENTRAL PARK                                0.391774             0.067628   
+         DELAVAN-GRIDER                              0.557789             0.126466   
+         ELMWOOD/WEST SIDE                           0.331369             0.070421   
+         FILLMORE-LEROY                              0.572905             0.076636   
+         GENNESSEE/SCHILLER PARK                     0.561058             0.096504   
+         HAMLIN PARK                                 0.630521             0.075028   
+         HOPKINS-TIFFT/SOUTH PARK                    0.538960             0.119342   
+         KAISERTOWN                                  0.527510             0.153325   
+         KENFIELD                                    0.621098             0.134945   
+         LOWER WEST SIDE                             0.465235             0.095859   
+         MASTEN PARK                                 0.524048             0.117619   
+         MLK PARK                                    0.637260             0.087182   
+         NORTH PARK                                  0.381951             0.111223   
+         PARKSIDE                                    0.321147             0.073297   
+         PRATT-WILLERT/FRUIT BELT                    0.511788             0.090175   
+         RIVERSIDE                                   0.570973             0.101163   
+         SENECA-CAZENOVIA                            0.579767             0.094908   
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY        0.559122             0.115978   
+         WEST HERTEL                                 0.427930             0.096593   
+         
+                                               \% Bachelors Degrees  \% Grad Degrees  \textbackslash{}
+         Neighborhood                                                                
+         1ST WARD/ELLICOTT                                0.120080        0.106791   
+         ALLENTOWN                                        0.236278        0.293739   
+         BLACK ROCK                                       0.117043        0.040322   
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK                0.066637        0.026239   
+         CENTRAL PARK                                     0.285987        0.209243   
+         DELAVAN-GRIDER                                   0.098827        0.049693   
+         ELMWOOD/WEST SIDE                                0.217344        0.203634   
+         FILLMORE-LEROY                                   0.111079        0.062859   
+         GENNESSEE/SCHILLER PARK                          0.070642        0.042479   
+         HAMLIN PARK                                      0.099660        0.058607   
+         HOPKINS-TIFFT/SOUTH PARK                         0.143793        0.098577   
+         KAISERTOWN                                       0.130900        0.048761   
+         KENFIELD                                         0.072256        0.032981   
+         LOWER WEST SIDE                                  0.098926        0.070552   
+         MASTEN PARK                                      0.069524        0.045714   
+         MLK PARK                                         0.053970        0.033212   
+         NORTH PARK                                       0.246587        0.149634   
+         PARKSIDE                                         0.251613        0.293728   
+         PRATT-WILLERT/FRUIT BELT                         0.109882        0.089270   
+         RIVERSIDE                                        0.072328        0.026924   
+         SENECA-CAZENOVIA                                 0.118931        0.035019   
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY             0.093231        0.100731   
+         WEST HERTEL                                      0.136279        0.081617   
+         
+                                               \% Non-Family Households  \% Living Alone  \textbackslash{}
+         Neighborhood                                                                    
+         1ST WARD/ELLICOTT                                    0.546176        0.863857   
+         ALLENTOWN                                            0.755826        0.784163   
+         BLACK ROCK                                           0.469531        0.909150   
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK                    0.455805        0.881535   
+         CENTRAL PARK                                         0.470177        0.710411   
+         DELAVAN-GRIDER                                       0.367030        0.912000   
+         ELMWOOD/WEST SIDE                                    0.583797        0.770252   
+         FILLMORE-LEROY                                       0.451927        0.875224   
+         GENNESSEE/SCHILLER PARK                              0.419656        0.904095   
+         HAMLIN PARK                                          0.370000        0.719595   
+         HOPKINS-TIFFT/SOUTH PARK                             0.385938        0.782854   
+         KAISERTOWN                                           0.519902        0.831097   
+         KENFIELD                                             0.366009        0.913043   
+         LOWER WEST SIDE                                      0.495343        0.853064   
+         MASTEN PARK                                          0.529197        0.927900   
+         MLK PARK                                             0.445016        0.946532   
+         NORTH PARK                                           0.531418        0.714857   
+         PARKSIDE                                             0.525216        0.793103   
+         PRATT-WILLERT/FRUIT BELT                             0.524247        0.950739   
+         RIVERSIDE                                            0.424213        0.829338   
+         SENECA-CAZENOVIA                                     0.472597        0.855478   
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY                 0.466133        0.740251   
+         WEST HERTEL                                          0.451897        0.816302   
+         
+                                               \% Living with Others  \textbackslash{}
+         Neighborhood                                                 
+         1ST WARD/ELLICOTT                                 0.136143   
+         ALLENTOWN                                         0.215837   
+         BLACK ROCK                                        0.090850   
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK                 0.118465   
+         CENTRAL PARK                                      0.289589   
+         DELAVAN-GRIDER                                    0.088000   
+         ELMWOOD/WEST SIDE                                 0.229748   
+         FILLMORE-LEROY                                    0.124776   
+         GENNESSEE/SCHILLER PARK                           0.095905   
+         HAMLIN PARK                                       0.280405   
+         HOPKINS-TIFFT/SOUTH PARK                          0.217146   
+         KAISERTOWN                                        0.168903   
+         KENFIELD                                          0.086957   
+         LOWER WEST SIDE                                   0.146936   
+         MASTEN PARK                                       0.072100   
+         MLK PARK                                          0.053468   
+         NORTH PARK                                        0.285143   
+         PARKSIDE                                          0.206897   
+         PRATT-WILLERT/FRUIT BELT                          0.049261   
+         RIVERSIDE                                         0.170662   
+         SENECA-CAZENOVIA                                  0.144522   
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY              0.259749   
+         WEST HERTEL                                       0.183698   
+         
+                                               \% Senior Living Alone  
+         Neighborhood                                                 
+         1ST WARD/ELLICOTT                                  0.237403  
+         ALLENTOWN                                          0.056062  
+         BLACK ROCK                                         0.238157  
+         BROADWAY-FILLMORE/LOVEJOY/BABCOCK                  0.299768  
+         CENTRAL PARK                                       0.130359  
+         DELAVAN-GRIDER                                     0.258286  
+         ELMWOOD/WEST SIDE                                  0.215178  
+         FILLMORE-LEROY                                     0.373429  
+         GENNESSEE/SCHILLER PARK                            0.212284  
+         HAMLIN PARK                                        0.340090  
+         HOPKINS-TIFFT/SOUTH PARK                           0.302312  
+         KAISERTOWN                                         0.298343  
+         KENFIELD                                           0.284348  
+         LOWER WEST SIDE                                    0.231198  
+         MASTEN PARK                                        0.383072  
+         MLK PARK                                           0.338150  
+         NORTH PARK                                         0.159379  
+         PARKSIDE                                           0.142706  
+         PRATT-WILLERT/FRUIT BELT                           0.394089  
+         RIVERSIDE                                          0.164954  
+         SENECA-CAZENOVIA                                   0.270979  
+         UNIVERSITY HEIGHTS/KENSINGTON-BAILEY               0.202182  
+         WEST HERTEL                                        0.238443  
+         
+         [23 rows x 40 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{ratesframe}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Curbside Recycling rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:} Curbside Recycling rate                      1.000000
+         \% Male Persons                               0.622357
+         \% Female Persons                            -0.622357
+         \% Age < 24                                  -0.609417
+         \% Age 25 to 44                               0.738623
+         \% Age 45 to 64                               0.237768
+         \% Age > 65                                  -0.266532
+         \% White                                      0.776029
+         \% Black                                     -0.749524
+         \% Latinx                                     0.158638
+         \% Asian                                      0.027839
+         \% Other Race                                 0.183251
+         \% Vacant Units                              -0.465041
+         \% 1 Unit Structure                           0.071515
+         \% 2 Unit Structure                          -0.429565
+         \% 3 to 19 Unit Structure                     0.237514
+         \% 20 Plus Unit Structure                     0.225532
+         \% of Structure Built 2000-2015              -0.100467
+         \% of Structures Buildt 1970-1999            -0.130998
+         \% of Structures built 1940-1979              0.138595
+         \% of Structures Built Pre-1940               0.011485
+         \% Owner Tenure                               0.292980
+         \% Renter Tenure                             -0.292980
+         \% 0 Available Vehicle                       -0.741639
+         \% 1 Available Vehicle                        0.049099
+         \% 2+ Available Vehicles                      0.746796
+         \% Family Household                          -0.530873
+         \% Family Households with Children           -0.599423
+         \% Married Family Households with Children    0.576947
+         \% Single Person Households                   0.187657
+         \% Foreign Born                               0.289716
+         \% < High School Education                   -0.557440
+         \% HS Education                              -0.840900
+         \% Associate Degrees                         -0.178795
+         \% Bachelors Degrees                          0.893334
+         \% Grad Degrees                               0.794172
+         \% Non-Family Households                      0.530873
+         \% Living Alone                              -0.647932
+         \% Living with Others                         0.647932
+         \% Senior Living Alone                       -0.688112
+         Name: Curbside Recycling rate, dtype: float64
+\end{Verbatim}
+            
+    Interpreting the above results, the strongest correlation seems to be
+that areas which have higher proportions of individuals who've received
+at least bachelors degrees tend to have higher recycling rates than
+those areas that don't. It is interesting how strong this correlation is
+to me, and I would like to try an eliminate some potential confounding
+factors to determine how close the relationship is.
+
+I did some research into it and found that just a few years ago, the
+state of recycling in Buffalo public schools was in a much worse place
+than today:
+http://www.investigativepost.org/2012/11/02/schools-recycling/
+
+At the time of that article, only 5 Buffalo public schools had green
+totes. Last year, 196 additional totes were put into 32 schools that
+participated in the Environmental Champions program. This program
+incentivizes schools to update their recycling policies towards
+diverting more away from landfills. Since the year the above article was
+written, Buffalo's overall recycling rate has climbed from 15.9\% to
+28\%, a major leap forward.
+
+https://www.buffalony.gov/CivicAlerts.aspx?AID=239
+
+I am somewhat unsure of where to go from here to develop some meaningful
+conclusions. I do have some other datasets that I want to try and
+compare this to but haven't run any analysis yet. Off of the r-values,
+the biggest suggestion I would have for the city is to ensure that high
+schoolers are educated about recycling through coursework and example
+set by school policy, which appears to already be happening. I am also
+trying to consider what kind of incentive (that the city could provide)
+would cause adults without any college education to recycle more. There
+is currently a contest for block clubs to recycle more which awards the
+winner with \$100 worth of beautification equipment, but it seems to me
+that the city could do more.
+
+https://buffalonews.com/2018/06/08/want-to-help-buffalo-boost-recycling-rates-here-how/
+
+It's also somewhat interesting that there's a strong correlation of
+recycling with areas with a lot of 25-44 year olds. I would have
+expected that to be the age group that recycles the most, but not to
+such a strong degree. Also surprising was just how negative the
+correlation is for under 25s, I would have possibly guessed that it
+would be positive. I'm not too sure why it's so low and would like to
+explore that further. I notice that family households with childred
+correlate strongly with lower recycling rates, but married families with
+children correlate with higher.
+
+Regarding the strong correlation between recycling rate and proportion
+of households with two+ vehicles, I think that it is mostly a reflection
+of there being higher recycling rates in wealthier areas.
+
+Singles households with multiple people also have a pretty strong
+likelihood to recycle than singles living alone. That makes a lot of
+sense to me, as there's increased social pressure to recycle and it can
+be logistically easier with more hands.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
